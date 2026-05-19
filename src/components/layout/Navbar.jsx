@@ -1,63 +1,139 @@
 "use client";
 
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    NavbarMenuToggle,
+    NavbarMenu,
+    NavbarMenuItem,
+    Button,
+} from "@heroui/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useState } from "react";
 
-export default function Navbar() {
+const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "Explore Cars", href: "/cars" },
+    { label: "Add Car", href: "/cars/add" },
+    { label: "My Bookings", href: "/my-bookings" },
+];
+
+export default function AppNavbar() {
     const { user, logout } = useAuth();
+    const pathname = usePathname();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className="bg-white shadow-md sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-                {/* Logo */}
-                <Link href="/" className="text-2xl font-bold text-blue-600">
-                    Drive<span className="text-gray-800">Fleet</span>
-                </Link>
+        <Navbar
+            onMenuOpenChange={setIsMenuOpen}
+            className="bg-white border-b border-gray-100 shadow-none"
+            maxWidth="xl"
+        >
+            {/* Logo */}
+            <NavbarContent>
+                <NavbarMenuToggle
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    className="sm:hidden"
+                />
+                <NavbarBrand>
+                    <Link href="/" className="text-xl font-bold text-blue-600">
+                        DriveFleet
+                    </Link>
+                </NavbarBrand>
+            </NavbarContent>
 
-                {/* Nav Links */}
-                <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-                    <Link href="/" className="hover:text-blue-600 transition">Home</Link>
-                    <Link href="/cars" className="hover:text-blue-600 transition">Cars</Link>
-                    {user && (
-                        <>
-                            <Link href="/my-bookings" className="hover:text-blue-600 transition">My Bookings</Link>
-                            <Link href="/my-cars" className="hover:text-blue-600 transition">My Cars</Link>
-                        </>
-                    )}
-                </div>
+            {/* Center Links */}
+            <NavbarContent className="hidden sm:flex gap-8" justify="center">
+                {navLinks.map((link) => (
+                    <NavbarItem key={link.href} isActive={pathname === link.href}>
+                        <Link
+                            href={link.href}
+                            className={`text-sm font-medium transition-colors ${pathname === link.href
+                                    ? "text-blue-600"
+                                    : "text-gray-600 hover:text-blue-600"
+                                }`}
+                        >
+                            {link.label}
+                        </Link>
+                    </NavbarItem>
+                ))}
+            </NavbarContent>
 
-                {/* Auth Buttons */}
-                <div className="flex items-center gap-3">
-                    {user ? (
-                        <>
-                            <span className="text-sm text-gray-500 hidden md:block">
+            {/* Auth Buttons */}
+            <NavbarContent justify="end">
+                {user ? (
+                    <>
+                        <NavbarItem className="hidden md:flex">
+                            <span className="text-sm text-gray-500 truncate max-w-35">
                                 {user.displayName || user.email}
                             </span>
-                            <button
-                                onClick={logout}
-                                className="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 transition"
+                        </NavbarItem>
+                        <NavbarItem>
+                            <Button
+                                onPress={logout}
+                                variant="light"
+                                color="danger"
+                                size="sm"
                             >
                                 Logout
-                            </button>
-                        </>
-                    ) : (
-                        <>
+                            </Button>
+                        </NavbarItem>
+                    </>
+                ) : (
+                    <>
+                        <NavbarItem className="hidden sm:flex">
                             <Link
                                 href="/login"
-                                className="text-blue-600 border border-blue-600 px-4 py-2 rounded-lg text-sm hover:bg-blue-50 transition"
+                                className="text-sm font-medium text-gray-600 hover:text-blue-600 transition"
                             >
                                 Login
                             </Link>
-                            <Link
+                        </NavbarItem>
+                        <NavbarItem>
+                            <Button
+                                as={Link}
                                 href="/register"
-                                className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"
+                                color="primary"
+                                size="sm"
+                                className="font-semibold"
                             >
                                 Register
-                            </Link>
-                        </>
-                    )}
-                </div>
-            </div>
-        </nav>
+                            </Button>
+                        </NavbarItem>
+                    </>
+                )}
+            </NavbarContent>
+
+            {/* Mobile Menu */}
+            <NavbarMenu className="pt-6">
+                {navLinks.map((link) => (
+                    <NavbarMenuItem key={link.href}>
+                        <Link
+                            href={link.href}
+                            className={`text-base font-medium w-full block py-2 ${pathname === link.href ? "text-blue-600" : "text-gray-700"
+                                }`}
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            {link.label}
+                        </Link>
+                    </NavbarMenuItem>
+                ))}
+                {!user && (
+                    <NavbarMenuItem>
+                        <Link
+                            href="/login"
+                            className="text-base font-medium text-gray-700 block py-2"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Login
+                        </Link>
+                    </NavbarMenuItem>
+                )}
+            </NavbarMenu>
+        </Navbar>
     );
 }
