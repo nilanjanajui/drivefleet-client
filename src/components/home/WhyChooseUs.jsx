@@ -1,4 +1,3 @@
-import { Card } from "@nextui-org/react";
 import { Headphones, BadgeDollarSign, ShieldCheck, Zap } from "lucide-react";
 
 const features = [
@@ -40,20 +39,18 @@ export default function WhyChooseUs() {
                     {features.map((feature) => {
                         const Icon = feature.icon;
                         return (
-                            <Card
+                            <div
                                 key={feature.title}
-                                className="border border-gray-100 shadow-none hover:shadow-md transition-shadow"
+                                className="border border-gray-100 rounded-2xl hover:shadow-md transition-shadow bg-white p-7"
                             >
-                                <div className="p-7">
-                                    <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
-                                        <Icon className="w-6 h-6 text-blue-600" />
-                                    </div>
-                                    <h3 className="font-bold text-gray-900 text-base mb-2">
-                                        {feature.title}
-                                    </h3>
-                                    <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
+                                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
+                                    <Icon className="w-6 h-6 text-blue-600" />
                                 </div>
-                            </Card>
+                                <h3 className="font-bold text-gray-900 text-base mb-2">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
+                            </div>
                         );
                     })}
                 </div>

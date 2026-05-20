@@ -1,8 +1,8 @@
 "use client";
 
-import { Card, Avatar, Button } from "@nextui-org/react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 const reviews = [
     {
@@ -61,59 +61,57 @@ export default function CustomerReviews() {
                 <div className="flex items-center justify-between mb-10">
                     <h2 className="text-3xl font-extrabold text-gray-900">Customer Reviews</h2>
                     <div className="flex items-center gap-2">
-                        <Button
-                            isIconOnly
-                            variant="bordered"
-                            size="sm"
-                            isDisabled={page === 0}
-                            onPress={() => setPage((p) => Math.max(0, p - 1))}
-                            className="border-gray-200"
+                        <button
+                            onClick={() => setPage((p) => Math.max(0, p - 1))}
+                            disabled={page === 0}
+                            className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-lg hover:bg-gray-50 transition disabled:opacity-40 disabled:cursor-not-allowed"
                         >
                             <ChevronLeft className="w-4 h-4" />
-                        </Button>
-                        <Button
-                            isIconOnly
-                            variant="bordered"
-                            size="sm"
-                            isDisabled={page === maxPage}
-                            onPress={() => setPage((p) => Math.min(maxPage, p + 1))}
-                            className="border-gray-200"
+                        </button>
+                        <button
+                            onClick={() => setPage((p) => Math.min(maxPage, p + 1))}
+                            disabled={page === maxPage}
+                            className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-lg hover:bg-gray-50 transition disabled:opacity-40 disabled:cursor-not-allowed"
                         >
                             <ChevronRight className="w-4 h-4" />
-                        </Button>
+                        </button>
                     </div>
                 </div>
 
                 {/* Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {visible.map((review) => (
-                        <Card
+                        <div
                             key={review.id}
-                            className="border border-gray-100 shadow-none hover:shadow-md transition-shadow"
+                            className="border border-gray-100 rounded-2xl hover:shadow-md transition-shadow bg-white p-6"
                         >
-                            <div className="p-6">
-                                {/* Stars */}
-                                <div className="flex gap-0.5 mb-4">
-                                    {Array.from({ length: review.stars }).map((_, i) => (
-                                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                                    ))}
-                                </div>
+                            {/* Stars */}
+                            <div className="flex gap-0.5 mb-4">
+                                {Array.from({ length: review.stars }).map((_, i) => (
+                                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                ))}
+                            </div>
 
-                                {/* Review text */}
-                                <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                                    &ldquo;{review.text}&rdquo;
-                                </p>
+                            {/* Review text */}
+                            <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                                &ldquo;{review.text}&rdquo;
+                            </p>
 
-                                {/* Reviewer */}
-                                <div className="flex items-center gap-3">
-                                    <Avatar src={review.avatar} size="sm" />
-                                    <div>
-                                        <p className="font-semibold text-gray-900 text-sm">{review.name}</p>
-                                        <p className="text-gray-400 text-xs">{review.role}</p>
-                                    </div>
+                            {/* Reviewer */}
+                            <div className="flex items-center gap-3">
+                                <Image
+                                    src={review.avatar}
+                                    alt={review.name}
+                                    width={36}
+                                    height={36}
+                                    className="rounded-full object-cover"
+                                />
+                                <div>
+                                    <p className="font-semibold text-gray-900 text-sm">{review.name}</p>
+                                    <p className="text-gray-400 text-xs">{review.role}</p>
                                 </div>
                             </div>
-                        </Card>
+                        </div>
                     ))}
                 </div>
             </div>

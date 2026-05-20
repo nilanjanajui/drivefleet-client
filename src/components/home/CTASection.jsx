@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/react";
 import Link from "next/link";
 
 export default function CTASection() {
@@ -13,23 +12,18 @@ export default function CTASection() {
                     rentals. Your perfect journey starts here.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                    <Button
-                        as={Link}
+                    <Link
                         href="/cars"
-                        size="lg"
-                        className="bg-white text-blue-600 font-semibold hover:bg-blue-50"
+                        className="px-7 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition"
                     >
                         Find Your Car
-                    </Button>
-                    <Button
-                        as={Link}
+                    </Link>
+                    <Link
                         href="/contact"
-                        size="lg"
-                        variant="bordered"
-                        className="border-white text-white font-semibold hover:bg-white hover:text-blue-600"
+                        className="px-7 py-3 border border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-600 transition"
                     >
                         Contact Sales
-                    </Button>
+                    </Link>
                 </div>
             </div>
         </section>

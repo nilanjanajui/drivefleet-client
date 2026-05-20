@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, Button } from "@nextui-org/react";
 import Link from "next/link";
 import Image from "next/image";
 import { Heart, Star, MapPin, ChevronRight } from "lucide-react";
@@ -40,14 +39,14 @@ function CarCard({ car }) {
     const [liked, setLiked] = useState(false);
 
     return (
-        <Card className="border border-gray-100 shadow-none hover:shadow-lg transition-shadow duration-300 p-0 overflow-hidden">
+        <div className="border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white">
             {/* Image */}
             <div className="relative h-52 overflow-hidden">
                 <Image
                     src={car.image}
                     alt={car.name}
                     fill
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="object-cover hover:scale-105 transition-transform duration-500"
                 />
                 <button
                     onClick={(e) => {
@@ -57,8 +56,9 @@ function CarCard({ car }) {
                     className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-1.5 shadow"
                 >
                     <Heart
-                        className={`w-4 h-4 transition ${liked ? "fill-red-500 text-red-500" : "text-gray-400"
-                            }`}
+                        className={`w-4 h-4 transition ${
+                            liked ? "fill-red-500 text-red-500" : "text-gray-400"
+                        }`}
                     />
                 </button>
             </div>
@@ -86,7 +86,7 @@ function CarCard({ car }) {
                     <span className="text-gray-400">({car.reviews} reviews)</span>
                 </div>
             </div>
-        </Card>
+        </div>
     );
 }
 
@@ -102,17 +102,13 @@ export default function AvailableCars() {
                             Curated selection of high-end vehicles ready for your next adventure.
                         </p>
                     </div>
-                    <Button
-                        as={Link}
+                    <Link
                         href="/cars"
-                        variant="light"
-                        color="primary"
-                        size="sm"
-                        endContent={<ChevronRight className="w-4 h-4" />}
-                        className="font-medium"
+                        className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 transition"
                     >
                         View all cars
-                    </Button>
+                        <ChevronRight className="w-4 h-4" />
+                    </Link>
                 </div>
 
                 {/* Cards */}
