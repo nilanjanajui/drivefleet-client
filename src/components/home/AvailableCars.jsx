@@ -33,6 +33,33 @@ const cars = [
         reviews: 210,
         image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=80",
     },
+    {
+        _id: "4",
+        name: "Mercedes-Benz G63 AMG",
+        price: 320,
+        location: "Los Angeles, CA",
+        rating: 4.9,
+        reviews: 176,
+        image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=700&q=80",
+    },
+    {
+        _id: "5",
+        name: "Audi RS7 Sportback",
+        price: 265,
+        location: "Chicago, IL",
+        rating: 4.8,
+        reviews: 142,
+        image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80",
+    },
+    {
+        _id: "6",
+        name: "Tesla Model X Plaid",
+        price: 280,
+        location: "Seattle, WA",
+        rating: 4.9,
+        reviews: 351,
+        image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=700&q=80",
+    },
 ];
 
 function CarCard({ car }) {
@@ -56,9 +83,8 @@ function CarCard({ car }) {
                     className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-1.5 shadow"
                 >
                     <Heart
-                        className={`w-4 h-4 transition ${
-                            liked ? "fill-red-500 text-red-500" : "text-gray-400"
-                        }`}
+                        className={`w-4 h-4 transition ${liked ? "fill-red-500 text-red-500" : "text-gray-400"
+                            }`}
                     />
                 </button>
             </div>
