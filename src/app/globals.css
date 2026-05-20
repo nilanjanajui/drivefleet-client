@@ -1,3 +1,2 @@
 @import "tailwindcss";
 @source "../node_modules/@heroui/theme/dist";
-@plugin "@heroui/react";

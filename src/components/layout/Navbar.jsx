@@ -9,7 +9,7 @@ import {
     NavbarMenu,
     NavbarMenuItem,
     Button,
-} from "@heroui/react";
+} from "@nextui-org/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";

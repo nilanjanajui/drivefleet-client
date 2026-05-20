@@ -1,12 +1,6 @@
 "use client";
 
-import {
-    Card,
-    CardBody,
-    CardFooter,
-    Button,
-    Chip,
-} from "@heroui/react";
+import { Card, Button } from "@nextui-org/react";
 import Link from "next/link";
 import Image from "next/image";
 import { Heart, Star, MapPin, ChevronRight } from "lucide-react";
@@ -46,9 +40,9 @@ function CarCard({ car }) {
     const [liked, setLiked] = useState(false);
 
     return (
-        <Card className="border border-gray-100 shadow-none hover:shadow-lg transition-shadow duration-300">
+        <Card className="border border-gray-100 shadow-none hover:shadow-lg transition-shadow duration-300 p-0 overflow-hidden">
             {/* Image */}
-            <div className="relative h-52 overflow-hidden rounded-t-xl">
+            <div className="relative h-52 overflow-hidden">
                 <Image
                     src={car.image}
                     alt={car.name}
@@ -69,7 +63,8 @@ function CarCard({ car }) {
                 </button>
             </div>
 
-            <CardBody className="px-4 pt-4 pb-2">
+            {/* Info */}
+            <div className="px-4 pt-4 pb-2">
                 <div className="flex items-start justify-between gap-2 mb-2">
                     <h3 className="font-bold text-gray-900 text-base">{car.name}</h3>
                     <div className="text-right shrink-0">
@@ -77,20 +72,20 @@ function CarCard({ car }) {
                         <p className="text-gray-400 text-xs">per day</p>
                     </div>
                 </div>
-
                 <div className="flex items-center gap-1 text-gray-400 text-sm mb-2">
                     <MapPin className="w-3.5 h-3.5" />
                     <span>{car.location}</span>
                 </div>
-            </CardBody>
+            </div>
 
-            <CardFooter className="px-4 pt-0 pb-4">
+            {/* Footer */}
+            <div className="px-4 pb-4">
                 <div className="flex items-center gap-1 text-sm">
                     <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
                     <span className="font-medium text-gray-800">{car.rating}</span>
                     <span className="text-gray-400">({car.reviews} reviews)</span>
                 </div>
-            </CardFooter>
+            </div>
         </Card>
     );
 }

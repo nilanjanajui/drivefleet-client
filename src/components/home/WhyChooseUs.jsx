@@ -1,4 +1,4 @@
-import { Card, CardBody } from "@heroui/react";
+import { Card } from "@nextui-org/react";
 import { Headphones, BadgeDollarSign, ShieldCheck, Zap } from "lucide-react";
 
 const features = [
@@ -44,7 +44,7 @@ export default function WhyChooseUs() {
                                 key={feature.title}
                                 className="border border-gray-100 shadow-none hover:shadow-md transition-shadow"
                             >
-                                <CardBody className="p-7">
+                                <div className="p-7">
                                     <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
                                         <Icon className="w-6 h-6 text-blue-600" />
                                     </div>
@@ -52,7 +52,7 @@ export default function WhyChooseUs() {
                                         {feature.title}
                                     </h3>
                                     <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
-                                </CardBody>
+                                </div>
                             </Card>
                         );
                     })}

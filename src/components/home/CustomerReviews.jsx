@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody, Avatar, Button } from "@heroui/react";
+import { Card, Avatar, Button } from "@nextui-org/react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
@@ -91,7 +91,7 @@ export default function CustomerReviews() {
                             key={review.id}
                             className="border border-gray-100 shadow-none hover:shadow-md transition-shadow"
                         >
-                            <CardBody className="p-6">
+                            <div className="p-6">
                                 {/* Stars */}
                                 <div className="flex gap-0.5 mb-4">
                                     {Array.from({ length: review.stars }).map((_, i) => (
@@ -112,7 +112,7 @@ export default function CustomerReviews() {
                                         <p className="text-gray-400 text-xs">{review.role}</p>
                                     </div>
                                 </div>
-                            </CardBody>
+                            </div>
                         </Card>
                     ))}
                 </div>
