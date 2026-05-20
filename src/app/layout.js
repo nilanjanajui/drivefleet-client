@@ -1,7 +1,7 @@
 import { Geist } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers/HeroUIProvider";
-import { AuthProvider } from "@/context/AuthContext";
+import AuthProvider from "@/context/AuthContext"; // ✅ fixed
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "react-hot-toast";
