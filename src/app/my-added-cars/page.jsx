@@ -1,4 +1,3 @@
-// src/app/my-added-cars/page.jsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -379,14 +378,11 @@ export default function MyAddedCarsPage() {
     const [editCar, setEditCar] = useState(null);
     const [deleteCar, setDeleteCar] = useState(null);
 
-    // triggerRefetch sets loading OUTSIDE the effect — linter happy
     const triggerRefetch = () => {
         setLoading(true);
         setRefetch((r) => r + 1);
     };
 
-    // ── Fetch cars ──────────────────────────────────────────────
-    // setState only called inside async .then/.catch/.finally callbacks
     useEffect(() => {
         let cancelled = false;
         axios
@@ -407,7 +403,6 @@ export default function MyAddedCarsPage() {
         };
     }, [refetch]);
 
-    // ── Availability toggle ──────────────────────────────────────
     const handleToggle = async (car) => {
         try {
             await axios.patch(
@@ -426,7 +421,6 @@ export default function MyAddedCarsPage() {
         }
     };
 
-    // ── Derived stats ────────────────────────────────────────────
     const totalCars = cars.length;
     const activeBookings = cars.reduce((s, c) => s + (c.booking_count || 0), 0);
     const totalRevenue = cars.reduce(
@@ -454,7 +448,7 @@ export default function MyAddedCarsPage() {
 
             <div className="min-h-screen bg-gray-50">
 
-                {/* ── Page Header ── */}
+                {/* Page Header */}
                 <div className="bg-white border-b border-gray-100 px-4 py-8">
                     <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
@@ -475,23 +469,23 @@ export default function MyAddedCarsPage() {
 
                 <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
 
-                    {/* ── Stats Row ── */}
+                    {/* Stats Row */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                         <StatCard icon={<Car size={20} />} label="Total Cars" value={totalCars} />
                         <StatCard
                             icon={<CalendarCheck size={20} />}
-                            label="Active Bookings"
+                            label="Total Bookings"
                             value={activeBookings}
                         />
                         <StatCard
                             icon={<DollarSign size={20} />}
-                            label="Total Revenue"
+                            label="Est. Revenue"
                             value={`$${totalRevenue.toLocaleString()}`}
                         />
                         <StatCard icon={<Star size={20} />} label="Avg Rating" value="4.9/5" />
                     </div>
 
-                    {/* ── Car List ── */}
+                    {/* Car List */}
                     {loading ? (
                         <div className="space-y-4">
                             {[1, 2, 3].map((i) => (

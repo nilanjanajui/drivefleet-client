@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Users, Fuel, Settings2, CalendarCheck, MapPin } from "lucide-react";
 import toast from "react-hot-toast";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function CarDetailsPage() {
     const { id } = useParams();
@@ -66,13 +67,7 @@ export default function CarDetailsPage() {
         fetchCar();
     }, [id]);
 
-    if (loading) {
-        return (
-            <div className="min-h-[60vh] flex items-center justify-center">
-                <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-            </div>
-        );
-    }
+    if (loading) return <LoadingSpinner />;
 
     if (!car) {
         return (
@@ -339,15 +334,17 @@ function BookNowModal({ car, user, onClose }) {
                     headers: { "Content-Type": "application/json" },
                     credentials: "include",
                     body: JSON.stringify({
-                        car_id: car._id,
-                        car_name: car.car_name,
-                        image_url: car.image_url,
-                        daily_rent_price: car.daily_rent_price,
-                        driver_needed: driverNeeded === "yes",
-                        special_note: specialNote,
-                        booking_date: new Date().toISOString(),
-                        user_email: user.email,
-                        user_name: user.name,
+                        carId: car._id,
+                        carName: car.car_name,
+                        carImage: car.image_url,
+                        carType: car.car_type,
+                        dailyRentPrice: car.daily_rent_price,
+                        pickupLocation: car.pickup_location,
+                        driverNeeded: driverNeeded === "yes",
+                        specialNote: specialNote,
+                        bookingDate: new Date().toISOString(),
+                        userEmail: user.email,
+                        userName: user.name,
                     }),
                 }
             );
@@ -418,7 +415,6 @@ function BookNowModal({ car, user, onClose }) {
                     </div>
                 </div>
 
-                {/* Special note */}
                 <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Special Note

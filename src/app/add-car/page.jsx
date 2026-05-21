@@ -1,4 +1,3 @@
-// src/app/add-car/page.jsx
 "use client";
 
 import { useState } from "react";
@@ -7,26 +6,20 @@ import Image from "next/image";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {
-    Car,
-    DollarSign,
-    MapPin,
-    Camera,
-    Calendar,
-    Tag,
-    Gauge,
-    Users,
-    FileText,
-    X,
-    ShieldCheck,
+    Car, DollarSign, MapPin, Camera,
+    Calendar, Tag, Gauge, Users, FileText, X, ShieldCheck,
 } from "lucide-react";
 
-const CAR_TYPES = ["SUV", "Sedan", "Hatchback", "Luxury", "Sports Coupe", "Electric SUV", "Convertible", "Pickup Truck"];
+const CAR_TYPES = [
+    "SUV", "Sedan", "Hatchback", "Luxury",
+    "Sports Coupe", "Electric SUV", "Convertible", "Pickup Truck",
+];
 const YEARS = Array.from({ length: 25 }, (_, i) => 2024 - i);
 
 export default function AddCarPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [imagePreview, setImagePreview] = useState(null);
+    const [imagePreview, setImagePreview] = useState("");
 
     const [form, setForm] = useState({
         carMake: "",
@@ -44,10 +37,8 @@ export default function AddCarPage() {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setForm((prev) => ({
-            ...prev,
-            [name]: type === "checkbox" ? checked : value,
-        }));
+        const newValue = type === "checkbox" ? checked : value;
+        setForm((prev) => ({ ...prev, [name]: newValue }));
         if (name === "imageUrl") setImagePreview(value);
     };
 
@@ -59,9 +50,8 @@ export default function AddCarPage() {
         }
         setLoading(true);
         try {
-            const carName = `${form.carMake} ${form.model}`.trim();
             const payload = {
-                car_name: carName,
+                car_name: `${form.carMake} ${form.model}`.trim(),
                 car_make: form.carMake,
                 model: form.model,
                 year: form.year,
@@ -91,19 +81,22 @@ export default function AddCarPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
+
             {/* Header */}
             <div className="bg-white border-b border-gray-100 py-10 text-center">
                 <h1 className="text-4xl font-bold text-gray-900 mb-2">List Your Vehicle</h1>
                 <p className="text-gray-500 text-sm max-w-md mx-auto">
                     Complete the form below to add your car to the DriveFleet marketplace.{" "}
-                    <span className="text-blue-600 font-medium">High-quality listings receive 3x more bookings.</span>
+                    <span className="text-blue-600 font-medium">
+                        High-quality listings receive 3x more bookings.
+                    </span>
                 </p>
             </div>
 
             <div className="max-w-2xl mx-auto px-4 py-10">
                 <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-10">
 
-                    {/* ── Basic Information ── */}
+                    {/* Basic Information */}
                     <section>
                         <div className="flex items-center gap-2 mb-5">
                             <span className="bg-blue-50 p-1.5 rounded-lg">
@@ -113,6 +106,7 @@ export default function AddCarPage() {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
                             {/* Car Make */}
                             <div className="relative">
                                 <Car size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -156,7 +150,7 @@ export default function AddCarPage() {
                                 <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">▾</span>
                             </div>
 
-                            {/* Category */}
+                            {/* Car Type */}
                             <div className="relative">
                                 <Tag size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                                 <select
@@ -192,7 +186,7 @@ export default function AddCarPage() {
 
                     <hr className="border-gray-100" />
 
-                    {/* ── Pricing & Rates ── */}
+                    {/* Pricing & Rates */}
                     <section>
                         <div className="flex items-center gap-2 mb-5">
                             <span className="bg-green-50 p-1.5 rounded-lg">
@@ -215,7 +209,6 @@ export default function AddCarPage() {
                                     className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-
                             <div className="relative">
                                 <Gauge size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input
@@ -233,7 +226,7 @@ export default function AddCarPage() {
 
                     <hr className="border-gray-100" />
 
-                    {/* ── Location ── */}
+                    {/* Location */}
                     <section>
                         <div className="flex items-center gap-2 mb-5">
                             <span className="bg-orange-50 p-1.5 rounded-lg">
@@ -241,7 +234,6 @@ export default function AddCarPage() {
                             </span>
                             <h2 className="text-lg font-semibold text-gray-800">Location</h2>
                         </div>
-
                         <div className="relative">
                             <MapPin size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                             <input
@@ -257,7 +249,7 @@ export default function AddCarPage() {
 
                     <hr className="border-gray-100" />
 
-                    {/* ── Media Upload ── */}
+                    {/* Media Upload */}
                     <section>
                         <div className="flex items-center gap-2 mb-5">
                             <span className="bg-purple-50 p-1.5 rounded-lg">
@@ -277,7 +269,6 @@ export default function AddCarPage() {
                             />
                         </div>
 
-                        {/* Preview grid */}
                         <div className="mt-4 grid grid-cols-2 gap-3">
                             {imagePreview ? (
                                 <div className="relative rounded-xl overflow-hidden border border-gray-200 aspect-video">
@@ -286,11 +277,15 @@ export default function AddCarPage() {
                                         alt="Preview"
                                         fill
                                         className="object-cover"
-                                        onError={() => setImagePreview(null)}
+                                        unoptimized
+                                        onError={() => setImagePreview("")}
                                     />
                                     <button
                                         type="button"
-                                        onClick={() => { setImagePreview(null); setForm(p => ({ ...p, imageUrl: "" })); }}
+                                        onClick={() => {
+                                            setImagePreview("");
+                                            setForm((p) => ({ ...p, imageUrl: "" }));
+                                        }}
                                         className="absolute top-2 right-2 bg-white rounded-full p-0.5 shadow text-gray-500 hover:text-red-500"
                                     >
                                         <X size={14} />
@@ -311,7 +306,7 @@ export default function AddCarPage() {
 
                     <hr className="border-gray-100" />
 
-                    {/* ── Description ── */}
+                    {/* Description */}
                     <section>
                         <div className="flex items-center gap-2 mb-5">
                             <span className="bg-gray-100 p-1.5 rounded-lg">
@@ -319,7 +314,6 @@ export default function AddCarPage() {
                             </span>
                             <h2 className="text-lg font-semibold text-gray-800">Description</h2>
                         </div>
-
                         <textarea
                             name="description"
                             value={form.description}
@@ -332,7 +326,7 @@ export default function AddCarPage() {
 
                     <hr className="border-gray-100" />
 
-                    {/* ── Availability ── */}
+                    {/* Availability */}
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-700">Available for Booking</span>
                         <label className="relative inline-flex items-center cursor-pointer">
@@ -347,7 +341,7 @@ export default function AddCarPage() {
                         </label>
                     </div>
 
-                    {/* ── Footer Buttons ── */}
+                    {/* Footer Buttons */}
                     <div className="flex items-center justify-between pt-2">
                         <div className="flex items-center gap-1.5 text-xs text-gray-400">
                             <ShieldCheck size={14} className="text-green-500" />

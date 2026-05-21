@@ -1,7 +1,6 @@
-// src/app/explore-cars/page.jsx
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
@@ -40,15 +39,14 @@ function CarCard({ car }) {
                         unoptimized
                     />
                 ) : (
-                    <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300">
+                    <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300 text-sm">
                         No Image
                     </div>
                 )}
-
-                {/* Availability badge */}
                 <span
-                    className={`absolute top-3 right-3 flex items-center gap-1 text-white text-xs font-semibold px-2.5 py-1 rounded-full ${car.availability ? "bg-green-500" : "bg-red-400"
-                        }`}
+                    className={`absolute top-3 right-3 flex items-center gap-1 text-white text-xs font-semibold px-2.5 py-1 rounded-full ${
+                        car.availability ? "bg-green-500" : "bg-red-400"
+                    }`}
                 >
                     <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
                     {car.availability ? "Available" : "Unavailable"}
@@ -57,8 +55,6 @@ function CarCard({ car }) {
 
             {/* Body */}
             <div className="p-5 flex flex-col flex-1">
-
-                {/* Name + Rating */}
                 <div className="flex items-start justify-between gap-2 mb-1">
                     <h3 className="text-base font-bold text-gray-900 leading-tight">
                         {car.car_name}
@@ -71,12 +67,10 @@ function CarCard({ car }) {
                     </div>
                 </div>
 
-                {/* Type tags */}
                 <p className="text-xs text-gray-400 mb-3">
                     {[car.car_type, car.model].filter(Boolean).join(" • ")}
                 </p>
 
-                {/* Seats + Location */}
                 <div className="flex items-center gap-4 text-xs text-gray-500 mb-4">
                     {car.seat_capacity && (
                         <span className="flex items-center gap-1">
@@ -92,7 +86,6 @@ function CarCard({ car }) {
                     )}
                 </div>
 
-                {/* Price + Button */}
                 <div className="flex items-center justify-between mt-auto">
                     <p className="text-gray-900">
                         <span className="text-2xl font-bold">${car.daily_rent_price}</span>
@@ -140,12 +133,10 @@ export default function ExploreCarsPage() {
     const [category, setCategory] = useState("All Types");
     const [sortBy, setSortBy] = useState("price_asc");
 
-    // pending filter state (applied only on button click)
     const [pendingSearch, setPendingSearch] = useState("");
     const [pendingCategory, setPendingCategory] = useState("All Types");
     const [pendingSortBy, setPendingSortBy] = useState("price_asc");
 
-    // ── Fetch all cars ──────────────────────────────────────────
     useEffect(() => {
         let cancelled = false;
         axios
@@ -161,32 +152,29 @@ export default function ExploreCarsPage() {
                     setCars(data);
                     setDisplayed(data.slice(0, PAGE_SIZE));
                     setPage(1);
+                    setLoading(false);
                 }
             })
             .catch(() => {
-                if (!cancelled) toast.error("Failed to load cars.");
-            })
-            .finally(() => {
-                if (!cancelled) setLoading(false);
+                if (!cancelled) {
+                    toast.error("Failed to load cars.");
+                    setLoading(false);
+                }
             });
         return () => { cancelled = true; };
     }, [search, category, sortBy]);
 
-    // ── Apply filters ───────────────────────────────────────────
     const handleApplyFilters = () => {
-        setLoading(true);
         setSearch(pendingSearch);
         setCategory(pendingCategory);
         setSortBy(pendingSortBy);
     };
 
-    // ── Load more ───────────────────────────────────────────────
     const handleLoadMore = () => {
         setLoadingMore(true);
         const nextPage = page + 1;
-        const next = cars.slice(0, nextPage * PAGE_SIZE);
         setTimeout(() => {
-            setDisplayed(next);
+            setDisplayed(cars.slice(0, nextPage * PAGE_SIZE));
             setPage(nextPage);
             setLoadingMore(false);
         }, 500);
@@ -197,7 +185,7 @@ export default function ExploreCarsPage() {
     return (
         <div className="min-h-screen bg-gray-50">
 
-            {/* ── Hero Header ── */}
+            {/* Hero Header */}
             <div className="bg-gray-50 px-4 pt-12 pb-8">
                 <div className="max-w-6xl mx-auto">
                     <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">
@@ -209,7 +197,7 @@ export default function ExploreCarsPage() {
                 </div>
             </div>
 
-            {/* ── Filter Bar ── */}
+            {/* Filter Bar */}
             <div className="px-4 pb-10">
                 <div className="max-w-6xl mx-auto bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
                     <div className="flex flex-col sm:flex-row gap-3 items-end">
@@ -220,10 +208,7 @@ export default function ExploreCarsPage() {
                                 Car Name
                             </label>
                             <div className="relative">
-                                <Search
-                                    size={15}
-                                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                                />
+                                <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input
                                     value={pendingSearch}
                                     onChange={(e) => setPendingSearch(e.target.value)}
@@ -266,7 +251,7 @@ export default function ExploreCarsPage() {
                             </select>
                         </div>
 
-                        {/* Apply button */}
+                        {/* Apply */}
                         <button
                             onClick={handleApplyFilters}
                             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors whitespace-nowrap"
@@ -278,7 +263,7 @@ export default function ExploreCarsPage() {
                 </div>
             </div>
 
-            {/* ── Cars Grid ── */}
+            {/* Cars Grid */}
             <div className="px-4 pb-16">
                 <div className="max-w-6xl mx-auto">
                     {loading ? (
@@ -302,7 +287,6 @@ export default function ExploreCarsPage() {
                                 ))}
                             </div>
 
-                            {/* Load More */}
                             {hasMore && (
                                 <div className="flex justify-center mt-12">
                                     <button
