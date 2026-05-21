@@ -21,7 +21,7 @@ const dropdownLinks = [
 ];
 
 export default function AppNavbar() {
-    const { user, logout } = useAuth();
+    const { user, logOut } = useAuth();
     const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -74,9 +74,9 @@ export default function AppNavbar() {
                                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition"
                             >
                                 {/* Avatar */}
-                                {user.photoURL ? (
+                                {user?.image ? (
                                     <Image
-                                        src={user.photoURL}
+                                        src={user?.image}
                                         alt="avatar"
                                         width={32}
                                         height={32}
@@ -84,11 +84,11 @@ export default function AppNavbar() {
                                     />
                                 ) : (
                                     <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-semibold">
-                                        {(user.displayName || user.email || "U")[0].toUpperCase()}
+                                        {(user?.name || user.email || "U")[0].toUpperCase()}
                                     </div>
                                 )}
                                 <span className="text-sm font-medium text-gray-700 max-w-30 truncate">
-                                    {user.displayName || user.email}
+                                    {user?.name || user.email}
                                 </span>
                                 <ChevronDown
                                     size={14}
@@ -112,7 +112,7 @@ export default function AppNavbar() {
                                     ))}
                                     <hr className="border-gray-100 my-1" />
                                     <button
-                                        onClick={() => { logout(); setIsDropdownOpen(false); }}
+                                        onClick={() => { logOut(); setIsDropdownOpen(false); }}
                                         className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition"
                                     >
                                         <LogOut size={15} />
@@ -172,15 +172,15 @@ export default function AppNavbar() {
                     {user ? (
                         <>
                             <div className="flex items-center gap-3 py-2">
-                                {user.photoURL ? (
-                                    <Image src={user.photoURL} alt="avatar" width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
+                                {user?.image ? (
+                                    <Image src={user?.image} alt="avatar" width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
                                 ) : (
                                     <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-semibold">
-                                        {(user.displayName || user.email || "U")[0].toUpperCase()}
+                                        {(user?.name || user.email || "U")[0].toUpperCase()}
                                     </div>
                                 )}
                                 <span className="text-sm text-gray-500 truncate">
-                                    {user.displayName || user.email}
+                                    {user?.name || user.email}
                                 </span>
                             </div>
                             {dropdownLinks.map(({ label, href, icon: Icon }) => (
@@ -195,7 +195,7 @@ export default function AppNavbar() {
                                 </Link>
                             ))}
                             <button
-                                onClick={() => { logout(); setIsMenuOpen(false); }}
+                                onClick={() => { logOut(); setIsMenuOpen(false); }}
                                 className="flex items-center gap-3 py-2.5 text-sm text-red-500 text-left"
                             >
                                 <LogOut size={15} />
