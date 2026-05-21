@@ -95,7 +95,8 @@ function CarCard({ car }) {
             </div>
 
             {/* Footer */}
-            <div className="px-4 pb-4 flex items-center justify-between">
+            {/* Footer */}
+            <div className="px-4 pb-4 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-1 text-sm">
                     <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
                     <span className="font-medium text-gray-800">4.9</span>
@@ -103,6 +104,12 @@ function CarCard({ car }) {
                         ({car.booking_count ?? 0} bookings)
                     </span>
                 </div>
+
+                <button
+                    className="px-4 py-2 border border-gray-300 rounded-xl text-sm font-medium text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors"
+                >
+                    View Details
+                </button>
             </div>
         </div>
     );
@@ -111,87 +118,87 @@ function CarCard({ car }) {
 // ─── Empty State ──────────────────────────────────────────────
 function EmptyState() {
     return (
-        <div className="col-span-3 flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
-                <Car className="w-8 h-8 text-blue-400" />
+            <div className="col-span-3 flex flex-col items-center justify-center py-20 text-center">
+                <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
+                    <Car className="w-8 h-8 text-blue-400" />
+                </div>
+                <p className="text-gray-500 font-medium">No cars listed yet</p>
+                <p className="text-gray-400 text-sm mt-1">
+                    Be the first to{" "}
+                    <Link href="/add-car" className="text-blue-600 hover:underline">
+                        add a car
+                    </Link>
+                    .
+                </p>
             </div>
-            <p className="text-gray-500 font-medium">No cars listed yet</p>
-            <p className="text-gray-400 text-sm mt-1">
-                Be the first to{" "}
-                <Link href="/add-car" className="text-blue-600 hover:underline">
-                    add a car
-                </Link>
-                .
-            </p>
-        </div>
-    );
+            );
 }
 
-// ─── Main Component ───────────────────────────────────────────
-export default function AvailableCars() {
-    const { user } = useAuth();
-    const router = useRouter();
-    const [cars, setCars] = useState([]);
-    const [loading, setLoading] = useState(true);
+            // ─── Main Component ───────────────────────────────────────────
+            export default function AvailableCars() {
+    const {user} = useAuth();
+            const router = useRouter();
+            const [cars, setCars] = useState([]);
+            const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios
-            .get(`${process.env.NEXT_PUBLIC_API_URL}/api/cars?sort=popular`)
-            .then((res) => setCars(res.data.slice(0, 6)))  // show max 6
-            .catch(() => setCars([]))
-            .finally(() => setLoading(false));
+                axios
+                    .get(`${process.env.NEXT_PUBLIC_API_URL}/api/cars?sort=popular`)
+                    .then((res) => setCars(res.data.slice(0, 6)))  // show max 6
+                    .catch(() => setCars([]))
+                    .finally(() => setLoading(false));
     }, []);
 
-    return (
-        <section className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
-                {/* Header */}
-                <div className="flex items-end justify-between mb-8">
-                    <div>
-                        <h2 className="text-3xl font-extrabold text-gray-900">
-                            Available Cars
-                        </h2>
-                        <p className="text-gray-400 text-sm mt-1">
-                            Curated selection of high-end vehicles ready for your next adventure.
-                        </p>
+            return (
+            <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    {/* Header */}
+                    <div className="flex items-end justify-between mb-8">
+                        <div>
+                            <h2 className="text-3xl font-extrabold text-gray-900">
+                                Available Cars
+                            </h2>
+                            <p className="text-gray-400 text-sm mt-1">
+                                Curated selection of high-end vehicles ready for your next adventure.
+                            </p>
+                        </div>
+                        <Link
+                            href="/explore-cars"
+                            className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 transition"
+                        >
+                            View all cars
+                            <ChevronRight className="w-4 h-4" />
+                        </Link>
                     </div>
-                    <Link
-                        href="/explore-cars"
-                        className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 transition"
-                    >
-                        View all cars
-                        <ChevronRight className="w-4 h-4" />
-                    </Link>
-                </div>
 
-                {/* Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {loading ? (
-                        Array.from({ length: 6 }).map((_, i) => (
-                            <SkeletonCard key={i} />
-                        ))
-                    ) : cars.length === 0 ? (
-                        <EmptyState />
-                    ) : (
-                        cars.map((car) => (
-                            <div
-                                key={car._id}
-                                className="flex flex-col cursor-pointer"
-                                onClick={() => {
-                                    if (!user) {
-                                        toast.error("Please login to view car details");
-                                        router.push("/login");
-                                        return;
-                                    }
-                                    router.push(`/cars/${car._id}`);
-                                }}
-                            >
-                                <CarCard car={car} />
-                            </div>
-                        ))
-                    )}
+                    {/* Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {loading ? (
+                            Array.from({ length: 6 }).map((_, i) => (
+                                <SkeletonCard key={i} />
+                            ))
+                        ) : cars.length === 0 ? (
+                            <EmptyState />
+                        ) : (
+                            cars.map((car) => (
+                                <div
+                                    key={car._id}
+                                    className="flex flex-col cursor-pointer"
+                                    onClick={() => {
+                                        if (!user) {
+                                            toast.error("Please login to view car details");
+                                            router.push("/login");
+                                            return;
+                                        }
+                                        router.push(`/cars/${car._id}`);
+                                    }}
+                                >
+                                    <CarCard car={car} />
+                                </div>
+                            ))
+                        )}
+                    </div>
                 </div>
-            </div>
-        </section>
-    );
+            </section>
+            );
 }
