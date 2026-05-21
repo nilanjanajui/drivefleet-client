@@ -46,7 +46,7 @@ export default function AuthProvider({ children }) {
 
         if (result.error) throw new Error(result.error.message);
 
-        // IMPORTANT: refresh session after login
+
         await refetch();
 
         return result;
@@ -79,7 +79,7 @@ export default function AuthProvider({ children }) {
                 signIn,
                 googleSignIn,
                 logOut,
-                refetch, // IMPORTANT FIX
+                refetch, 
             }}
         >
             {children}

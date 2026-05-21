@@ -1,4 +1,5 @@
 "use client";
+
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -8,9 +9,12 @@ export default function PrivateRoute({ children }) {
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !user) router.push("/login");
+        if (!loading && user === null) {
+            router.replace("/login"); // replace is safer than push
+        }
     }, [user, loading, router]);
 
+    // ── LOADING STATE ─────────────────────
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
@@ -19,5 +23,7 @@ export default function PrivateRoute({ children }) {
         );
     }
 
-    return user ? children : null;
+    if (!user) return null;
+
+    return children;
 }
