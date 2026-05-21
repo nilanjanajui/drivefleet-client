@@ -1,51 +1,87 @@
 "use client";
+
 import { createContext, useContext } from "react";
-import { signIn as baSignIn, signUp as baSignUp, signOut as baSignOut, useSession } from "@/lib/authClient";
+import {
+    signIn as baSignIn,
+    signUp as baSignUp,
+    signOut as baSignOut,
+    useSession,
+} from "@/lib/authClient";
 
 const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 
 export default function AuthProvider({ children }) {
-    const { data: session, isPending: loading, refetch } = useSession();
+    const {
+        data: session,
+        isPending: loading,
+        refetch,
+    } = useSession();
+
     const user = session?.user || null;
 
-    // ── Email + Password Register ──────────────────────────────
+    // ── SIGN UP ──────────────────────────────
     const signUp = async (name, email, password, image) => {
         const result = await baSignUp.email({
             name,
             email,
             password,
-            image: image || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&size=128`,
+            image:
+                image ||
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                    name
+                )}&background=random&size=128`,
         });
+
         if (result.error) throw new Error(result.error.message);
         return result;
     };
 
-    // ── Email + Password Login ─────────────────────────────────
+    // ── SIGN IN ──────────────────────────────
     const signIn = async (email, password) => {
         const result = await baSignIn.email({
             email,
             password,
         });
+
         if (result.error) throw new Error(result.error.message);
+
+        // IMPORTANT: refresh session after login
+        await refetch();
+
         return result;
     };
 
-    // ── Google Login ───────────────────────────────────────────
+    // ── GOOGLE LOGIN ─────────────────────────
     const googleSignIn = async () => {
+        const baseURL =
+            process.env.NEXT_PUBLIC_CLIENT_URL ||
+            "http://localhost:3000";
+
         await baSignIn.social({
             provider: "google",
-            callbackURL: process.env.NEXT_PUBLIC_CLIENT_URL + "/" || "http://localhost:3000/",
+            callbackURL: baseURL,
         });
     };
 
-    // ── Logout ─────────────────────────────────────────────────
+    // ── LOGOUT ───────────────────────────────
     const logOut = async () => {
         await baSignOut();
+        await refetch();
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, signUp, signIn, googleSignIn, logOut }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                loading,
+                signUp,
+                signIn,
+                googleSignIn,
+                logOut,
+                refetch, // IMPORTANT FIX
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
