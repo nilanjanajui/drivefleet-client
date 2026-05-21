@@ -7,7 +7,6 @@ import { MapPin, CalendarDays, User, Hash } from "lucide-react";
 import toast from "react-hot-toast";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
-
 const STATUS_CONFIG = {
     confirmed: {
         label: "Confirmed",
@@ -49,7 +48,7 @@ export default function MyBookingsPage() {
             try {
                 setLoading(true);
                 const res = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/api/bookings`,
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/my`,
                     { credentials: "include" }
                 );
                 const data = await res.json();
@@ -69,7 +68,7 @@ export default function MyBookingsPage() {
         try {
             const res = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/${cancelTarget}`,
-                { method: "DELETE", credentials: "include" }
+                { method: "PATCH", credentials: "include" }
             );
             if (res.ok) {
                 toast.success("Booking cancelled");
@@ -96,7 +95,6 @@ export default function MyBookingsPage() {
         if (activeTab === "Cancelled") return b.status === "cancelled";
         return true;
     });
-
 
     if (loading) return <LoadingSpinner />;
 
