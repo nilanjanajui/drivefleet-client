@@ -62,10 +62,7 @@ export default function CarDetailsPage() {
         fetchCar();
     }, [id]);
 
-    useEffect(() => {
-        fetchUser();
-        fetchCar();
-    }, [id]);
+
 
     if (loading) return <LoadingSpinner />;
 

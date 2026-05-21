@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
@@ -22,7 +23,7 @@ const SORT_OPTIONS = [
 const PAGE_SIZE = 6;
 
 // ─── Car Card ─────────────────────────────────────────────────
-function CarCard({ car }) {
+function CarCard({ car, user }) {
     const router = useRouter();
 
     return (
@@ -44,9 +45,8 @@ function CarCard({ car }) {
                     </div>
                 )}
                 <span
-                    className={`absolute top-3 right-3 flex items-center gap-1 text-white text-xs font-semibold px-2.5 py-1 rounded-full ${
-                        car.availability ? "bg-green-500" : "bg-red-400"
-                    }`}
+                    className={`absolute top-3 right-3 flex items-center gap-1 text-white text-xs font-semibold px-2.5 py-1 rounded-full ${car.availability ? "bg-green-500" : "bg-red-400"
+                        }`}
                 >
                     <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
                     {car.availability ? "Available" : "Unavailable"}
@@ -92,7 +92,14 @@ function CarCard({ car }) {
                         <span className="text-sm text-gray-400 ml-1">/ day</span>
                     </p>
                     <button
-                        onClick={() => router.push(`/cars/${car._id}`)}
+                        onClick={() => {
+                            if (!user) {
+                                toast.error("Please login to view car details");
+                                router.push("/login");
+                                return;
+                            }
+                            router.push(`/cars/${car._id}`);
+                        }}
                         className="px-4 py-2 border border-gray-300 rounded-xl text-sm font-medium text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors"
                     >
                         View Details

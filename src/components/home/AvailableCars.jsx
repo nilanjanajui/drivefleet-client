@@ -5,6 +5,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Heart, Star, MapPin, ChevronRight, Car } from "lucide-react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import toast from "react-hot-toast";
 
 // ─── Skeleton Card ────────────────────────────────────────────
 function SkeletonCard() {
@@ -54,17 +57,15 @@ function CarCard({ car }) {
                     className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-1.5 shadow"
                 >
                     <Heart
-                        className={`w-4 h-4 transition ${
-                            liked ? "fill-red-500 text-red-500" : "text-gray-400"
-                        }`}
+                        className={`w-4 h-4 transition ${liked ? "fill-red-500 text-red-500" : "text-gray-400"
+                            }`}
                     />
                 </button>
 
                 {/* Availability badge */}
                 <span
-                    className={`absolute top-3 left-3 text-white text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1 ${
-                        car.availability ? "bg-green-500" : "bg-red-400"
-                    }`}
+                    className={`absolute top-3 left-3 text-white text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1 ${car.availability ? "bg-green-500" : "bg-red-400"
+                        }`}
                 >
                     <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
                     {car.availability ? "Available" : "Unavailable"}
@@ -128,6 +129,8 @@ function EmptyState() {
 
 // ─── Main Component ───────────────────────────────────────────
 export default function AvailableCars() {
+    const { user } = useAuth();
+    const router = useRouter();
     const [cars, setCars] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -171,13 +174,20 @@ export default function AvailableCars() {
                         <EmptyState />
                     ) : (
                         cars.map((car) => (
-                            <Link
+                            <div
                                 key={car._id}
-                                href={`/cars/${car._id}`}
-                                className="flex flex-col"
+                                className="flex flex-col cursor-pointer"
+                                onClick={() => {
+                                    if (!user) {
+                                        toast.error("Please login to view car details");
+                                        router.push("/login");
+                                        return;
+                                    }
+                                    router.push(`/cars/${car._id}`);
+                                }}
                             >
                                 <CarCard car={car} />
-                            </Link>
+                            </div>
                         ))
                     )}
                 </div>
