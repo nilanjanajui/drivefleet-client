@@ -46,9 +46,9 @@ function EditModal({ car, onClose, onSaved }) {
     const handleSave = async () => {
         setSaving(true);
         try {
-            await axios.patch(
+            await axios.put(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/cars/${car._id}`,
-                form,
+                { availability: !car.availability },   // ← was: form (undefined here)
                 { withCredentials: true }
             );
             toast.success("Car updated!");
@@ -408,7 +408,7 @@ export default function MyAddedCarsPage() {
         try {
             await axios.put(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/cars/${car._id}`,
-                form,
+                { availability: !car.availability },
                 { withCredentials: true }
             );
             setCars((prev) =>
