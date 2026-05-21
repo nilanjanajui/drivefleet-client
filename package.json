@@ -11,7 +11,7 @@
   "dependencies": {
     "@heroui/react": "^3.0.5",
     "axios": "^1.16.1",
-    "firebase": "^12.13.0",
+    "better-auth": "^1.6.11",
     "framer-motion": "^12.39.0",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^1.16.0",
