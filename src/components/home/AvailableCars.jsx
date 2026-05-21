@@ -2,134 +2,158 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Heart, Star, MapPin, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Heart, Star, MapPin, ChevronRight, Car } from "lucide-react";
+import axios from "axios";
 
-const cars = [
-    {
-        _id: "1",
-        name: "Porsche Taycan Turbo",
-        price: 299,
-        location: "San Francisco, CA",
-        rating: 4.9,
-        reviews: 928,
-        image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=700&q=80",
-    },
-    {
-        _id: "2",
-        name: "Land Rover Defender",
-        price: 185,
-        location: "Denver, CO",
-        rating: 4.8,
-        reviews: 84,
-        image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=700&q=80",
-    },
-    {
-        _id: "3",
-        name: "BMW M5 Competition",
-        price: 240,
-        location: "Miami, FL",
-        rating: 4.9,
-        reviews: 210,
-        image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=80",
-    },
-    {
-        _id: "4",
-        name: "Mercedes-Benz G63 AMG",
-        price: 320,
-        location: "Los Angeles, CA",
-        rating: 4.9,
-        reviews: 176,
-        image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=700&q=80",
-    },
-    {
-        _id: "5",
-        name: "Audi RS7 Sportback",
-        price: 265,
-        location: "Chicago, IL",
-        rating: 4.8,
-        reviews: 142,
-        image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80",
-    },
-    {
-        _id: "6",
-        name: "Tesla Model X Plaid",
-        price: 280,
-        location: "Seattle, WA",
-        rating: 4.9,
-        reviews: 351,
-        image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=700&q=80",
-    },
-];
+// ─── Skeleton Card ────────────────────────────────────────────
+function SkeletonCard() {
+    return (
+        <div className="border border-gray-100 rounded-2xl overflow-hidden bg-white animate-pulse">
+            <div className="h-52 bg-gray-100" />
+            <div className="px-4 pt-4 pb-4 space-y-3">
+                <div className="flex justify-between">
+                    <div className="h-4 bg-gray-100 rounded w-2/3" />
+                    <div className="h-4 bg-gray-100 rounded w-1/5" />
+                </div>
+                <div className="h-3 bg-gray-100 rounded w-1/2" />
+                <div className="h-3 bg-gray-100 rounded w-1/3" />
+            </div>
+        </div>
+    );
+}
 
+// ─── Car Card ─────────────────────────────────────────────────
 function CarCard({ car }) {
     const [liked, setLiked] = useState(false);
 
     return (
-        <div className="border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white">
+        <div className="border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white flex flex-col h-full">
             {/* Image */}
-            <div className="relative h-52 overflow-hidden">
-                <Image
-                    src={car.image}
-                    alt={car.name}
-                    fill
-                    className="object-cover hover:scale-105 transition-transform duration-500"
-                />
+            <div className="relative h-52 overflow-hidden shrink-0">
+                {car.image_url ? (
+                    <Image
+                        src={car.image_url}
+                        alt={car.car_name}
+                        fill
+                        unoptimized
+                        className="object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                ) : (
+                    <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300">
+                        <Car className="w-10 h-10" />
+                    </div>
+                )}
+
+                {/* Wishlist button */}
                 <button
                     onClick={(e) => {
                         e.preventDefault();
-                        setLiked(!liked);
+                        setLiked((p) => !p);
                     }}
                     className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-1.5 shadow"
                 >
                     <Heart
-                        className={`w-4 h-4 transition ${liked ? "fill-red-500 text-red-500" : "text-gray-400"
-                            }`}
+                        className={`w-4 h-4 transition ${
+                            liked ? "fill-red-500 text-red-500" : "text-gray-400"
+                        }`}
                     />
                 </button>
+
+                {/* Availability badge */}
+                <span
+                    className={`absolute top-3 left-3 text-white text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1 ${
+                        car.availability ? "bg-green-500" : "bg-red-400"
+                    }`}
+                >
+                    <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
+                    {car.availability ? "Available" : "Unavailable"}
+                </span>
             </div>
 
             {/* Info */}
-            <div className="px-4 pt-4 pb-2">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                    <h3 className="font-bold text-gray-900 text-base">{car.name}</h3>
+            <div className="px-4 pt-4 pb-2 flex-1">
+                <div className="flex items-start justify-between gap-2 mb-1">
+                    <h3 className="font-bold text-gray-900 text-base leading-tight">
+                        {car.car_name}
+                    </h3>
                     <div className="text-right shrink-0">
-                        <span className="text-blue-600 font-bold text-base">${car.price}</span>
+                        <span className="text-blue-600 font-bold text-base">
+                            ${car.daily_rent_price}
+                        </span>
                         <p className="text-gray-400 text-xs">per day</p>
                     </div>
                 </div>
-                <div className="flex items-center gap-1 text-gray-400 text-sm mb-2">
-                    <MapPin className="w-3.5 h-3.5" />
-                    <span>{car.location}</span>
+
+                <p className="text-xs text-gray-400 mb-2">{car.car_type}</p>
+
+                <div className="flex items-center gap-1 text-gray-400 text-sm">
+                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                    <span className="truncate">{car.pickup_location}</span>
                 </div>
             </div>
 
             {/* Footer */}
-            <div className="px-4 pb-4">
+            <div className="px-4 pb-4 flex items-center justify-between">
                 <div className="flex items-center gap-1 text-sm">
                     <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-                    <span className="font-medium text-gray-800">{car.rating}</span>
-                    <span className="text-gray-400">({car.reviews} reviews)</span>
+                    <span className="font-medium text-gray-800">4.9</span>
+                    <span className="text-gray-400">
+                        ({car.booking_count ?? 0} bookings)
+                    </span>
                 </div>
             </div>
         </div>
     );
 }
 
+// ─── Empty State ──────────────────────────────────────────────
+function EmptyState() {
+    return (
+        <div className="col-span-3 flex flex-col items-center justify-center py-20 text-center">
+            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
+                <Car className="w-8 h-8 text-blue-400" />
+            </div>
+            <p className="text-gray-500 font-medium">No cars listed yet</p>
+            <p className="text-gray-400 text-sm mt-1">
+                Be the first to{" "}
+                <Link href="/add-car" className="text-blue-600 hover:underline">
+                    add a car
+                </Link>
+                .
+            </p>
+        </div>
+    );
+}
+
+// ─── Main Component ───────────────────────────────────────────
 export default function AvailableCars() {
+    const [cars, setCars] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        axios
+            .get(`${process.env.NEXT_PUBLIC_API_URL}/api/cars?sort=popular`)
+            .then((res) => setCars(res.data.slice(0, 6)))  // show max 6
+            .catch(() => setCars([]))
+            .finally(() => setLoading(false));
+    }, []);
+
     return (
         <section className="py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Header */}
                 <div className="flex items-end justify-between mb-8">
                     <div>
-                        <h2 className="text-3xl font-extrabold text-gray-900">Available Cars</h2>
+                        <h2 className="text-3xl font-extrabold text-gray-900">
+                            Available Cars
+                        </h2>
                         <p className="text-gray-400 text-sm mt-1">
                             Curated selection of high-end vehicles ready for your next adventure.
                         </p>
                     </div>
                     <Link
-                        href="/cars"
+                        href="/explore-cars"
                         className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 transition"
                     >
                         View all cars
@@ -137,13 +161,25 @@ export default function AvailableCars() {
                     </Link>
                 </div>
 
-                {/* Cards */}
+                {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {cars.map((car) => (
-                        <Link key={car._id} href={`/cars/${car._id}`}>
-                            <CarCard car={car} />
-                        </Link>
-                    ))}
+                    {loading ? (
+                        Array.from({ length: 6 }).map((_, i) => (
+                            <SkeletonCard key={i} />
+                        ))
+                    ) : cars.length === 0 ? (
+                        <EmptyState />
+                    ) : (
+                        cars.map((car) => (
+                            <Link
+                                key={car._id}
+                                href={`/cars/${car._id}`}
+                                className="flex flex-col"
+                            >
+                                <CarCard car={car} />
+                            </Link>
+                        ))
+                    )}
                 </div>
             </div>
         </section>
