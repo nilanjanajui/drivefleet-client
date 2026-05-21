@@ -115,6 +115,19 @@ export default function RegisterPage() {
                             </div>
                         </div>
 
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Photo URL</label>
+                            <div className="relative">
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+                                <input name="photoURL" type="url" placeholder="https://example.com/photo.jpg"
+                                    className="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                            </div>
+                        </div>
+
                         {/* Password */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
