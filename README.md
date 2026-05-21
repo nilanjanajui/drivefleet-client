@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![DriveFleet Banner](https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&q=80)
-
 **A modern, full-stack car rental platform where users can explore, book, and manage premium vehicles — all in one place.**
 
 [![Live Site](https://img.shields.io/badge/🌐_Live_Site-drivefleet--client--sigma.vercel.app-blue?style=for-the-badge)](https://drivefleet-client-sigma.vercel.app)
