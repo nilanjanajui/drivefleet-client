@@ -45,7 +45,7 @@ export default function AddCarPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!form.carMake || !form.model || !form.dailyRentPrice || !form.pickupLocation) {
+        if (!form.carMake || !form.model || !form.dailyRentPrice || !form.pickupLocation || !form.carType || !form.seatCapacity) {
             toast.error("Please fill in all required fields.");
             return;
         }
@@ -56,11 +56,11 @@ export default function AddCarPage() {
                 car_make: form.carMake,
                 model: form.model,
                 year: form.year,
-                car_type: form.carType,
+                car_type: form.carType || "Sedan",
                 daily_rent_price: Number(form.dailyRentPrice),
                 daily_mileage_limit: form.dailyMileageLimit ? Number(form.dailyMileageLimit) : null,
                 pickup_location: form.pickupLocation,
-                seat_capacity: form.seatCapacity ? Number(form.seatCapacity) : null,
+                seat_capacity: form.seatCapacity ? Number(form.seatCapacity) : 5,
                 description: form.description,
                 image_url: form.imageUrl,
                 availability: form.availability,
@@ -269,6 +269,10 @@ export default function AddCarPage() {
                                     placeholder="Image URL (imgbb / postimage)"
                                     className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
+
+                                <p className="text-xs text-gray-400 mt-1">
+                                    Use a direct image URL from imgbb.com or postimage.org. Unsplash page URLs will not work.
+                                </p>
                             </div>
 
                             <div className="mt-4 grid grid-cols-2 gap-3">
@@ -297,7 +301,7 @@ export default function AddCarPage() {
                                     <div className="border-2 border-dashed border-gray-200 rounded-xl aspect-video flex flex-col items-center justify-center text-gray-400 text-xs gap-1">
                                         <Camera size={22} className="text-gray-300" />
                                         <span>Paste image URL above</span>
-                                        <span className="text-gray-300">Recommended: 1920×1080px</span>
+                                        <span className="text-gray-300">Recommended: 1920x1080px</span>
                                     </div>
                                 )}
                                 <div className="border border-gray-100 bg-gray-50 rounded-xl aspect-video flex items-center justify-center text-gray-300">

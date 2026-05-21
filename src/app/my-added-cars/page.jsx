@@ -406,9 +406,9 @@ export default function MyAddedCarsPage() {
 
     const handleToggle = async (car) => {
         try {
-            await axios.patch(
+            await axios.put(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/cars/${car._id}`,
-                { availability: !car.availability },
+                form,
                 { withCredentials: true }
             );
             setCars((prev) =>
@@ -430,7 +430,7 @@ export default function MyAddedCarsPage() {
     );
 
     return (
-            <PrivateRoute>
+        <PrivateRoute>
             {editCar && (
                 <EditModal
                     car={editCar}
