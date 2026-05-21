@@ -6,6 +6,7 @@ import Link from "next/link";
 import { MapPin, CalendarDays, User, Hash } from "lucide-react";
 import toast from "react-hot-toast";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import PrivateRoute from "@/components/PrivateRoute";
 
 const STATUS_CONFIG = {
     confirmed: {
@@ -99,8 +100,9 @@ export default function MyBookingsPage() {
     if (loading) return <LoadingSpinner />;
 
     return (
-        <>
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <PrivateRoute>
+            <>
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
                 {/* Header */}
                 <div className="mb-8">
@@ -326,5 +328,6 @@ export default function MyBookingsPage() {
                 </div>
             )}
         </>
+        </PrivateRoute>
     );
 }

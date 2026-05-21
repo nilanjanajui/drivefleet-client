@@ -9,6 +9,7 @@ import {
     Car, Plus, Pencil, Trash2, Star,
     DollarSign, CalendarCheck, X, ShieldCheck, MapPin,
 } from "lucide-react";
+import PrivateRoute from "@/components/PrivateRoute";
 
 const CAR_TYPES = ["SUV", "Sedan", "Hatchback", "Luxury", "Sports Coupe", "Electric SUV", "Convertible", "Pickup Truck"];
 
@@ -429,7 +430,7 @@ export default function MyAddedCarsPage() {
     );
 
     return (
-        <>
+            <PrivateRoute>
             {editCar && (
                 <EditModal
                     car={editCar}
@@ -525,6 +526,6 @@ export default function MyAddedCarsPage() {
                     )}
                 </div>
             </div>
-        </>
+        </PrivateRoute>
     );
 }
