@@ -17,8 +17,9 @@ export const useAuth = () => useContext(AuthContext);
 
 const issueJWT = async (user) => {
     try {
-        await fetch("/api/auth/jwt", {
+        await fetch("http://localhost:5000/api/auth/jwt", { 
             method: "POST",
+            credentials: "include",                           
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 email: user.email,
@@ -57,7 +58,9 @@ export default function AuthProvider({ children }) {
         updateProfile(auth.currentUser, { displayName: name, photoURL: photo });
 
     const logOut = async () => {
-        await fetch("/api/auth/logout"); // clears HTTPOnly cookie
+        await fetch("http://localhost:5000/api/auth/logout", {
+            credentials: "include",
+        });
         return signOut(auth);
     };
 
