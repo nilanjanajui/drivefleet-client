@@ -26,6 +26,7 @@ export default function RegisterPage() {
 
         const name = e.target.name.value;
         const email = e.target.email.value;
+        const photoURL = e.target.photoURL.value;
         const password = e.target.password.value;
         const confirm = e.target.confirm.value;
 
@@ -36,7 +37,7 @@ export default function RegisterPage() {
 
         setLoading(true);
         try {
-            await signUp(name, email, password);
+            await signUp(name, email, password, photoURL);
             toast.success("Account created! Please log in.");
             router.push("/login");
         } catch (err) {

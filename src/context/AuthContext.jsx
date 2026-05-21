@@ -10,11 +10,12 @@ export default function AuthProvider({ children }) {
     const user = session?.user || null;
 
     // ── Email + Password Register ──────────────────────────────
-    const signUp = async (name, email, password) => {
+    const signUp = async (name, email, password, image) => {
         const result = await baSignUp.email({
             name,
             email,
             password,
+            image: image || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&size=128`,
         });
         if (result.error) throw new Error(result.error.message);
         return result;
