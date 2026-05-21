@@ -9,15 +9,15 @@ import { Menu, X, ChevronDown, Car, BookOpen, List, LogOut } from "lucide-react"
 
 const navLinks = [
     { label: "Home", href: "/" },
-    { label: "Explore Cars", href: "/cars" },
-    { label: "Add Car", href: "/cars/add" },
+    { label: "Explore Cars", href: "/explore-cars" },
+    { label: "Add Car", href: "/add-car" },
     { label: "My Bookings", href: "/my-bookings" },
 ];
 
 const dropdownLinks = [
-    { label: "Add Car", href: "/cars/add", icon: Car },
+    { label: "Add Car", href: "/add-car", icon: Car },
     { label: "My Bookings", href: "/my-bookings", icon: BookOpen },
-    { label: "My Added Cars", href: "/my-cars", icon: List },
+    { label: "My Added Cars", href: "/my-added-cars", icon: List },
 ];
 
 export default function AppNavbar() {
