@@ -2,154 +2,341 @@
 
 <div align="center">
 
-**A modern, full-stack car rental platform where users can explore, book, and manage premium vehicles — all in one place.**
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:2563eb&height=220&section=header&text=DriveFleet&fontSize=55&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Modern%20Full-Stack%20Car%20Rental%20Platform&descAlignY=58" width="100%" />
 
-[![Live Site](https://img.shields.io/badge/🌐_Live_Site-drivefleet--client--sigma.vercel.app-blue?style=for-the-badge)](https://drivefleet-client-sigma.vercel.app)
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
-[![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/)
+### ✨ Explore • Book • Manage Premium Cars Effortlessly
+
+<p>
+  <a href="https://drivefleet-client-sigma.vercel.app">
+    <img src="https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-2563eb?style=for-the-badge" />
+  </a>
+  <a href="https://nextjs.org/">
+    <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" />
+  </a>
+  <a href="https://tailwindcss.com/">
+    <img src="https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=for-the-badge&logo=tailwindcss" />
+  </a>
+  <a href="https://vercel.com/">
+    <img src="https://img.shields.io/badge/Deployment-Vercel-black?style=for-the-badge&logo=vercel" />
+  </a>
+</p>
+
+<p>
+  <img src="https://img.shields.io/github/stars/nilanjanajui/drivefleet-client?style=social" />
+  <img src="https://img.shields.io/github/forks/nilanjanajui/drivefleet-client?style=social" />
+  <img src="https://img.shields.io/github/issues/nilanjanajui/drivefleet-client" />
+  <img src="https://img.shields.io/github/license/nilanjanajui/drivefleet-client" />
+</p>
 
 </div>
 
 ---
 
-## ✨ Features
+# 🌟 Overview
 
-- 🔐 **Secure Authentication** — Email/password and Google OAuth login powered by Better Auth with HTTPOnly cross-domain cookies (SameSite=None), keeping sessions persistent across Vercel and Render deployments
-- 🚙 **Full Car Listing Management** — Any logged-in user can list their own cars with detailed info including type, daily price, seat capacity, pickup location, and images; edit or delete listings at any time from the My Added Cars dashboard
-- 📅 **Smart Booking System** — Book any available car with optional driver assignment and special notes; every booking increments the car's popularity counter and is tracked with a confirmed/cancelled status
-- 🔍 **Advanced Search & Filter** — Search cars by name using MongoDB `$regex`, filter by category using `$in`, and sort by price (low/high), newest first, or most popular — all wired directly to the database
-- 📊 **Personal Booking Dashboard** — View all bookings with tab filters (All / Active / Pending / Cancelled), cancel active bookings through a confirmation modal, and re-book cancelled cars in one click
+**DriveFleet** is a modern full-stack car rental platform designed to deliver a seamless experience for both car owners and renters.
 
----
+Users can:
 
-## 🛠️ Tech Stack
+* 🚙 Discover premium vehicles
+* 📅 Book cars instantly
+* 🔍 Search & filter listings dynamically
+* 📊 Manage bookings and listed vehicles
+* 🔐 Enjoy secure authentication with persistent sessions
 
-| Category | Technology |
-|---|---|
-| Framework | Next.js 16 (App Router) |
-| Styling | Tailwind CSS v4 |
-| Authentication | Better Auth (email/password + Google OAuth) |
-| Session Storage | HTTPOnly cookie (SameSite=None, Secure) |
-| HTTP Client | Axios |
-| Notifications | react-hot-toast |
-| Icons | lucide-react |
-| UI Components | HeroUI |
-| Animations | Framer Motion |
-| Images | next/image (unoptimized for external URLs) |
-| Deployment | Vercel |
+Built with scalability, responsiveness, and clean UI/UX in mind, DriveFleet combines modern frontend technologies with secure authentication and real-time database-driven functionality.
 
 ---
 
-## 📁 Project Structure
+# 🔥 Key Features
 
-```
+## 🔐 Secure Authentication System
+
+* Email/password authentication
+* Google OAuth integration
+* Powered by **Better Auth**
+* HTTPOnly cross-domain cookies
+* Persistent login sessions across refreshes
+* Secure private route protection using `router.replace()`
+
+---
+
+## 🚘 Dynamic Car Listing Management
+
+Logged-in users can:
+
+* Add their own cars
+* Upload car images
+* Edit listings anytime
+* Delete existing listings
+* Manage all listings from a dedicated dashboard
+
+Each listing includes:
+
+* Car name & model
+* Daily rental price
+* Category/type
+* Pickup location
+* Seat capacity
+* Availability status
+* Images
+
+---
+
+## 📅 Smart Booking System
+
+DriveFleet includes a complete booking workflow:
+
+* Book available vehicles instantly
+* Add special booking notes
+* Optional driver assignment
+* Booking status tracking
+* Cancel bookings anytime
+* Re-book cancelled vehicles in one click
+* Automatic popularity tracking for cars
+
+---
+
+## 🔎 Advanced Search, Filter & Sorting
+
+Database-powered search experience using MongoDB:
+
+| Feature            | Implementation         |
+| ------------------ | ---------------------- |
+| Search by name     | MongoDB `$regex`       |
+| Filter by category | MongoDB `$in`          |
+| Sort by price      | Ascending / Descending |
+| Sort by popularity | Most booked first      |
+| Sort by latest     | Newest listings first  |
+
+---
+
+## 📊 Personalized User Dashboard
+
+Users can manage all bookings through an intuitive dashboard:
+
+* View all bookings
+* Filter by booking status
+* Cancel active bookings
+* Re-book cancelled cars
+* Responsive table & card layouts
+
+---
+
+# 🖥️ Tech Stack
+
+<div align="center">
+
+| Category           | Technology              |
+| ------------------ | ----------------------- |
+| Framework          | Next.js 16 (App Router) |
+| Styling            | Tailwind CSS v4         |
+| Authentication     | Better Auth             |
+| Database           | MongoDB                 |
+| Backend            | Express.js              |
+| HTTP Client        | Axios                   |
+| UI Components      | HeroUI                  |
+| Notifications      | react-hot-toast         |
+| Animation          | Framer Motion           |
+| Icons              | lucide-react            |
+| Image Optimization | next/image              |
+| Deployment         | Vercel + Render         |
+
+</div>
+
+---
+
+# 📁 Project Architecture
+
+```bash
 src/
 ├── app/
-│   ├── page.js                  # Home page
-│   ├── layout.js                # Root layout with Navbar + Footer
-│   ├── not-found.js             # Custom 404 page
-│   ├── login/page.jsx           # Login with email & Google
-│   ├── register/page.jsx        # Register with password validation
-│   ├── add-car/page.jsx         # Add new car listing (private)
-│   ├── explore-cars/page.jsx    # Browse all cars with search/filter/sort
-│   ├── cars/[id]/page.jsx       # Car details + Book Now modal
-│   ├── my-added-cars/page.jsx   # Manage own listings (private)
-│   └── my-bookings/page.jsx     # View and cancel bookings (private)
+│   ├── page.js
+│   ├── layout.js
+│   ├── not-found.js
+│   ├── login/page.jsx
+│   ├── register/page.jsx
+│   ├── add-car/page.jsx
+│   ├── explore-cars/page.jsx
+│   ├── cars/[id]/page.jsx
+│   ├── my-added-cars/page.jsx
+│   └── my-bookings/page.jsx
 │
 ├── components/
 │   ├── layout/
-│   │   ├── Navbar.jsx           # Sticky navbar with profile dropdown + mobile menu
-│   │   └── Footer.jsx           # Footer with social icons and useful links
+│   │   ├── Navbar.jsx
+│   │   └── Footer.jsx
+│   │
 │   ├── home/
-│   │   ├── HeroBanner.jsx       # Landing hero section
-│   │   ├── AvailableCars.jsx    # DB-wired car cards (min 6)
-│   │   ├── WhyChooseUs.jsx      # Static features section
-│   │   ├── CustomerReviews.jsx  # Static testimonials section
-│   │   └── CTASection.jsx       # Call-to-action section
-│   ├── PrivateRoute.jsx         # Auth guard wrapper component
-│   └── LoadingSpinner.jsx       # Global loading indicator
+│   │   ├── HeroBanner.jsx
+│   │   ├── AvailableCars.jsx
+│   │   ├── WhyChooseUs.jsx
+│   │   ├── CustomerReviews.jsx
+│   │   └── CTASection.jsx
+│   │
+│   ├── PrivateRoute.jsx
+│   └── LoadingSpinner.jsx
 │
 ├── context/
-│   └── AuthContext.jsx          # Global auth state (user, signUp, logOut, googleSignIn)
+│   └── AuthContext.jsx
 │
 └── lib/
-    └── authClient.js            # Better Auth client instance
+    └── authClient.js
 ```
 
 ---
 
-## 📄 Pages Overview
+# 📄 Application Pages
 
-| Page | Route | Access |
-|---|---|---|
-| Home | `/` | Public |
-| Explore Cars | `/explore-cars` | Public |
-| Car Details | `/cars/[id]` | Logged-in only |
-| Add Car | `/add-car` | Private |
+| Page          | Route            | Access  |
+| ------------- | ---------------- | ------- |
+| Home          | `/`              | Public  |
+| Explore Cars  | `/explore-cars`  | Public  |
+| Car Details   | `/cars/[id]`     | Private |
+| Add Car       | `/add-car`       | Private |
 | My Added Cars | `/my-added-cars` | Private |
-| My Bookings | `/my-bookings` | Private |
-| Login | `/login` | Public |
-| Register | `/register` | Public |
-| 404 | `/*` | Public |
+| My Bookings   | `/my-bookings`   | Private |
+| Login         | `/login`         | Public  |
+| Register      | `/register`      | Public  |
+| 404 Page      | `/*`             | Public  |
 
 ---
 
-## 🔒 Authentication Flow
+# 🔒 Authentication Workflow
 
-- Users register with name, email, photo URL, and password
-- Password must be at least 6 characters with at least one uppercase and one lowercase letter
-- On successful registration, users are redirected to the login page
-- Google OAuth is available on both login and register pages
-- Session is maintained via an HTTPOnly cookie — private routes remain accessible on reload
-- Unauthenticated access to private routes redirects to `/login` using `router.replace()`
+```mermaid
+flowchart LR
+
+A[User Registration/Login] --> B[Better Auth]
+B --> C[HTTPOnly Cookie Created]
+C --> D[Persistent Session]
+D --> E[Access Private Routes]
+E --> F[Protected Dashboard Access]
+```
 
 ---
 
-## 🚀 Getting Started
+# 🚀 Getting Started
 
-### Prerequisites
+## 📦 Prerequisites
 
-- Node.js 18+
-- A running instance of the [DriveFleet Server](https://github.com/nilanjanajui/drivefleet-server)
+Make sure you have installed:
 
-### Installation
+* Node.js 18+
+* npm / yarn / pnpm
+* MongoDB server
+* DriveFleet backend server
+
+---
+
+## ⚙️ Installation
 
 ```bash
 git clone https://github.com/nilanjanajui/drivefleet-client.git
+
 cd drivefleet-client
+
 npm install
 ```
 
-### Environment Variables
+---
 
-Create a `.env.local` file in the root:
+## 🔑 Environment Variables
+
+Create a `.env.local` file in the root directory:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000
 NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:5000
 ```
 
-### Run Locally
+---
+
+## ▶️ Run Development Server
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open:
+
+```bash
+http://localhost:3000
+```
 
 ---
 
-## 🌐 Deployment
+# 🌐 Live Deployment
 
-The client is deployed on **Vercel**.
+<div align="center">
 
-Live URL: **[https://drivefleet-client-sigma.vercel.app](https://drivefleet-client-sigma.vercel.app)**
+### 🚀 Live Website
 
-> Make sure `NEXT_PUBLIC_API_URL` points to the deployed Render server URL in Vercel's environment variable settings.
+## [https://drivefleet-client-sigma.vercel.app](https://drivefleet-client-sigma.vercel.app)
+
+</div>
 
 ---
 
-## 🔗 Related Repository
+# 🔗 Related Repository
 
-- **Server (Express + MongoDB):** [github.com/nilanjanajui/drivefleet-server](https://github.com/nilanjanajui/drivefleet-server)
+### 🛠️ Backend Server
+
+* Express.js + MongoDB API
+* Booking management
+* Authentication handling
+* Database operations
+
+👉 [https://github.com/nilanjanajui/drivefleet-server](https://github.com/nilanjanajui/drivefleet-server)
+
+---
+
+# 🎯 Highlights
+
+✅ Fully Responsive Design
+✅ Protected Private Routes
+✅ Persistent Authentication
+✅ Dynamic Database Queries
+✅ Booking Management System
+✅ Modern UI/UX
+✅ Production Deployment
+✅ Scalable Component Structure
+
+---
+
+# 📸 Suggested Future Improvements
+
+* 💳 Stripe Payment Integration
+* 🗺️ Google Maps Location Support
+* ⭐ User Reviews & Ratings
+* 📱 Progressive Web App (PWA)
+* 🔔 Real-time Notifications
+* 📈 Analytics Dashboard
+* ❤️ Wishlist / Favorites
+* 🧠 AI-based Car Recommendations
+
+---
+
+# 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome.
+
+Feel free to fork the repository and submit pull requests.
+
+---
+
+# 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+<div align="center">
+
+## 🚗 DriveFleet
+
+### Experience Premium Car Rentals With Modern Web Technology
+
+⭐ If you like this project, consider giving it a star on GitHub.
+
+</div>
