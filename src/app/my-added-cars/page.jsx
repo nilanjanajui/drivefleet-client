@@ -48,7 +48,7 @@ function EditModal({ car, onClose, onSaved }) {
         try {
             await axios.put(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/cars/${car._id}`,
-                { availability: !car.availability },   // ← was: form (undefined here)
+                form,
                 { withCredentials: true }
             );
             toast.success("Car updated!");
