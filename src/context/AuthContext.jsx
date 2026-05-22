@@ -49,23 +49,23 @@ export default function AuthProvider({ children }) {
 
         await refetch();
         await fetch(`${API}/api/auth-token/token`, {
-        method: "POST",
-        credentials: "include",
-    });
+            method: "POST",
+            credentials: "include",
+        });
 
         return result;
     };
 
     // ── GOOGLE LOGIN ─────────────────────────
-    const googleSignIn = async () => {
-        const baseURL =
-            process.env.NEXT_PUBLIC_CLIENT_URL ||
-            "http://localhost:3000";
 
+
+    const googleSignIn = async () => {
+        const baseURL = process.env.NEXT_PUBLIC_CLIENT_URL || "http://localhost:3000";
         await baSignIn.social({
             provider: "google",
-            callbackURL: baseURL,
+            callbackURL: `${baseURL}?fetchToken=1`,  // handle on return
         });
+
     };
 
     // ── LOGOUT ───────────────────────────────
@@ -83,7 +83,7 @@ export default function AuthProvider({ children }) {
                 signIn,
                 googleSignIn,
                 logOut,
-                refetch, 
+                refetch,
             }}
         >
             {children}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const heroImages = [
     {
@@ -31,7 +32,6 @@ const heroImages = [
 export default function HeroBanner() {
     const [current, setCurrent] = useState(0);
 
-    // Auto-slide every 4 seconds
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrent((prev) => (prev + 1) % heroImages.length);
@@ -46,8 +46,13 @@ export default function HeroBanner() {
         <section className="bg-[#EEF3FF] min-h-[88vh] flex items-center relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center py-16">
 
-                {/* Left */}
-                <div className="order-2 lg:order-1">
+                {/* Left — text content */}
+                <motion.div
+                    className="order-2 lg:order-1"
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                >
                     <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-[1.1] mb-6">
                         Drive Your Journey{" "}
                         <br />
@@ -58,31 +63,37 @@ export default function HeroBanner() {
                             Rentals
                         </span>
                     </h1>
-                    <p className="text-gray-500 text-base max-w-md mb-8 leading-relaxed">
-                        Experience the ultimate in automotive luxury. From sleek executive
-                        sedans to rugged premium SUVs, find the perfect vehicle for every occasion.
+
+                    <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-md">
+                        Discover a fleet of premium vehicles available at your fingertips.
+                        Book instantly, drive confidently, and enjoy every mile.
                     </p>
-                    <div className="flex flex-wrap gap-4">
+
+                    <div className="flex items-center gap-4 flex-wrap">
                         <Link
                             href="/explore-cars"
-                            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-7 py-3 rounded-xl transition"
                         >
                             Explore Cars
                         </Link>
                         <Link
                             href="/register"
-                            className="px-6 py-3 font-semibold border border-gray-300 text-gray-700 bg-white rounded-lg hover:bg-gray-50 transition"
+                            className="border border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 font-semibold px-7 py-3 rounded-xl transition"
                         >
-                            Become a Host
+                            Get Started
                         </Link>
                     </div>
-                </div>
+                </motion.div>
 
-                {/* Right — Carousel */}
-                <div className="order-1 lg:order-2 relative flex items-center justify-end">
-                    <div className="relative w-full max-w-xl h-105 rounded-2xl overflow-hidden shadow-2xl">
+                {/* Right — image slider */}
+                <motion.div
+                    className="order-1 lg:order-2 flex justify-center"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+                >
+                    <div className="relative w-full max-w-xl h-96 lg:h-105 rounded-2xl overflow-hidden shadow-2xl">
 
-                        {/* Images */}
                         {heroImages.map((img, i) => (
                             <Image
                                 key={i}
@@ -97,7 +108,6 @@ export default function HeroBanner() {
                             />
                         ))}
 
-                        {/* Prev button */}
                         <button
                             onClick={prev}
                             className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full w-9 h-9 flex items-center justify-center text-gray-600 hover:text-blue-600 hover:bg-white transition shadow z-10"
@@ -105,7 +115,6 @@ export default function HeroBanner() {
                             <ChevronLeft className="w-5 h-5" />
                         </button>
 
-                        {/* Next button */}
                         <button
                             onClick={next}
                             className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full w-9 h-9 flex items-center justify-center text-gray-600 hover:text-blue-600 hover:bg-white transition shadow z-10"
@@ -113,7 +122,6 @@ export default function HeroBanner() {
                             <ChevronRight className="w-5 h-5" />
                         </button>
 
-                        {/* Dot indicators */}
                         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
                             {heroImages.map((_, i) => (
                                 <button
@@ -128,7 +136,8 @@ export default function HeroBanner() {
                             ))}
                         </div>
                     </div>
-                </div>
+                </motion.div>
+
             </div>
         </section>
     );

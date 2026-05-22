@@ -1,4 +1,5 @@
 import { Headphones, BadgeDollarSign, ShieldCheck, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 
 const features = [
     {
@@ -26,7 +27,14 @@ const features = [
 export default function WhyChooseUs() {
     return (
         <section className="py-20 bg-[#EEF3FF]">
-            <div className="max-w-7xl mx-auto px-6">
+            <motion.div
+                key={feature.title}
+                className="border border-gray-100 rounded-2xl hover:shadow-md transition-shadow bg-white p-7"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: features.indexOf(feature) * 0.15 }}
+            >
                 <div className="text-center mb-14">
                     <h2 className="text-3xl font-extrabold text-gray-900">Why Choose DriveFleet</h2>
                     <p className="text-gray-500 text-sm mt-3 max-w-sm mx-auto leading-relaxed">
@@ -54,7 +62,7 @@ export default function WhyChooseUs() {
                         );
                     })}
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 }
