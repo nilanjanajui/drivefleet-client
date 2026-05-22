@@ -48,6 +48,10 @@ export default function AuthProvider({ children }) {
 
 
         await refetch();
+        await fetch(`${API}/api/auth-token/token`, {
+        method: "POST",
+        credentials: "include",
+    });
 
         return result;
     };
