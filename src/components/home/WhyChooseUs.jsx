@@ -1,3 +1,5 @@
+"use-client";
+
 import { Headphones, BadgeDollarSign, ShieldCheck, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
