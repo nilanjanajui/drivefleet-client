@@ -29,42 +29,37 @@ const features = [
 export default function WhyChooseUs() {
     return (
         <section className="py-20 bg-[#EEF3FF]">
-            <motion.div
-                key={feature.title}
-                className="border border-gray-100 rounded-2xl hover:shadow-md transition-shadow bg-white p-7"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: features.indexOf(feature) * 0.15 }}
-            >
-                <div className="text-center mb-14">
-                    <h2 className="text-3xl font-extrabold text-gray-900">Why Choose DriveFleet</h2>
-                    <p className="text-gray-500 text-sm mt-3 max-w-sm mx-auto leading-relaxed">
-                        We provide more than just a car rental; we deliver a premium experience
-                        designed for your comfort and security.
-                    </p>
-                </div>
+            <div className="text-center mb-14">
+                <h2 className="text-3xl font-extrabold text-gray-900">Why Choose DriveFleet</h2>
+                <p className="text-gray-500 text-sm mt-3 max-w-sm mx-auto leading-relaxed">
+                    We provide more than just a car rental; we deliver a premium experience
+                    designed for your comfort and security.
+                </p>
+            </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {features.map((feature) => {
-                        const Icon = feature.icon;
-                        return (
-                            <div
-                                key={feature.title}
-                                className="border border-gray-100 rounded-2xl hover:shadow-md transition-shadow bg-white p-7"
-                            >
-                                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
-                                    <Icon className="w-6 h-6 text-blue-600" />
-                                </div>
-                                <h3 className="font-bold text-gray-900 text-base mb-2">
-                                    {feature.title}
-                                </h3>
-                                <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-6">
+                {features.map((feature, i) => {      
+                    const Icon = feature.icon;
+                    return (
+                        <motion.div                    
+                            key={feature.title}
+                            className="border border-gray-100 rounded-2xl hover:shadow-md transition-shadow bg-white p-7"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: i * 0.15 }} 
+                        >
+                            <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
+                                <Icon className="w-6 h-6 text-blue-600" />
                             </div>
-                        );
-                    })}
-                </div>
-            </motion.div>
+                            <h3 className="font-bold text-gray-900 text-base mb-2">
+                                {feature.title}
+                            </h3>
+                            <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
+                        </motion.div>
+                    );
+                })}
+            </div>
         </section>
     );
 }
