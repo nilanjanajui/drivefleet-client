@@ -48,10 +48,16 @@ export default function AuthProvider({ children }) {
 
 
         await refetch();
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth-token/token`, {
-            method: "POST",
-            credentials: "include",
-        });
+        try {
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth-token/token`, {
+                method: "POST",
+                credentials: "include",
+            });
+        } catch (err) {
+            console.warn("Token fetch failed (non-critical):", err.message);
+        }
+
+        return result;
 
         return result;
     };
